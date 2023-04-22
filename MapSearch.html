@@ -14,7 +14,7 @@
 
     STAGE 2: IN PROGRESS
     fix the range of map + data points showed :)
-    full list of denyList 
+    add to deny list of denyList :)
     put on website (tech domain)
     finish devpost
 
@@ -83,11 +83,11 @@
 
                 var query = 'restaurant'; // ************************************** TODO: locations here
                 var radius = 9000;
-                var lat = 47.64452336193245;  //**********************************************user location
-                var lon = -122.13687658309935; //**********************************************user  location
-
+                var lat = 34.07023625751049 ;  //**********************************************user location
+                var lon = -118.44675563468073; //**********************************************user  location
+                
                 searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
-                    limit: 10,
+                    limit: 100,
                     lat: lat,
                     lon: lon,
                     radius: radius,
@@ -194,8 +194,23 @@
 
 
             function checkIfDeny(item){
-                const denyList = ["Domino's", "SUBWAY", "KFC"];
-                return !denyList.includes(item.properties.poi.name);
+                const denyList = new Set([
+                    "Domino's",
+                    "SUBWAY",
+                    "KFC",
+                    "McDonald's",
+                    "Chipotle Mexican Grill",
+                    "Taco Bell",
+                    "Carl's Junior",
+                    "Veggie Grill",
+                    "Wetzel's Pretzels",
+                    "Jamba Juice",
+                    "Yogurtland",
+                    "B J's Chicago Pizzeria",
+                    "Olive Garden",
+                    "Five Guys"
+                ]);
+                return !denyList.has(item.properties.poi.name);
             }
 
         }
