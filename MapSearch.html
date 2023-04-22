@@ -5,8 +5,9 @@
     website implimentation
 
     STAGE 1:
-    user set location
-    search nearby (get search nearby of all places)
+    user set location :)
+    search nearby (get search nearby of all places) :)
+    search nearby category restaurants
     remove points from unwanted places
 
     STAGE 2:
@@ -72,18 +73,17 @@
                 // Construct the SearchURL object
                 var searchURL = new atlas.service.SearchURL(pipeline);
 
-                var query = 'gasoline-station'; // ************************************** TODO: locations here
+                var query = 'restaurant'; // ************************************** TODO: locations here
                 var radius = 9000;
                 var lat = 47.64452336193245;  //**********************************************user location
                 var lon = -122.13687658309935; //**********************************************user  location
-
 
                 searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
                     limit: 10,
                     lat: lat,
                     lon: lon,
                     radius: radius,
-                    view: 'Auto'
+                    view: 'Auto',
                 }).then((results) => {
 
                     // Extract GeoJSON feature collection from the response and add it to the datasource
@@ -104,22 +104,55 @@
                 //Add a mouse over event to the result layer and display a popup when this event fires.
                 map.events.add('mouseover', resultLayer, showPopup);
                 map.events.add('mouseout', resultLayer, hidePopup);
-                
+
                 //refresh the data on click
                 map.events.add('click', function (e) {
-                    
                     //current coordinates 
                     var position = e.position;
-                    //.shapes[0].getCoordinates();
                     console.log(position);
+
+                    var query = 'restaurant'; // ************************************** TODO: locations here
+                    var radius = 9000;
+                    var lat = position[1];  //**********************************************user location
+                    var lon = position[0]; //**********************************************user  location
+                    var bounds = map.getCamera().bounds;
+
+                    searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
+                        limit: 10,
+                        lat: lat,
+                        lon: lon,
+                        
+                        /* 
+                        FIX THIS LATER!!!!!!!!!!! VIEW BOUNDS
+                        
+                        topLeft: `${bounds[0]},${bounds[3]}`,
+                        btmRight: `${bounds[2]},${bounds[1]}`, */
+                        radius: radius,
+                        view: 'Auto'
+                    }).then((results) => {
+
+                        // Extract GeoJSON feature collection from the response and add it to the datasource
+                        var data = results.geojson.getFeatures();
+                        datasource.clear();
+                        datasource.add(data);
+
+
+                        //console.log(data);
+                        //console.log(map.getCamera().bounds); //top left (0,3) bottom right (1,2)
+/* 
+                        // set camera to bounds to<Your Azure Maps Subscription Key> show the results
+                        map.setCamera({
+                            bounds: data.bbox,
+                            zoom: 10,
+                            padding: 15
+                        }); */
+                    });
 
                 });
 
-
-                function hidePopup(e){
+                function hidePopup(e) {
                     popup.close(map);
                 }
-
                 function showPopup(e) {
                     //Get the properties and coordinates of the first shape that the event occurred on.
                     var p = e.shapes[0].getProperties();
