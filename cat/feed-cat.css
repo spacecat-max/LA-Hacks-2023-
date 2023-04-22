@@ -1,0 +1,28 @@
+.cat {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  height: 260px;
+  background-image: url('./popcat.png');
+  background-size: 533px 300px;
+  background-position: -30px bottom;
+  cursor: pointer;
+}
+.cat:not(.nom):hover {
+  background-position: -282px bottom;
+}
+.nommy {
+  position: fixed;
+  left: 130px;
+  bottom: 150px;
+  text-align: center;
+  margin: 0;
+  color: magenta;
+  font-size: 32px;
+  font-family: 'Comic Sans MS';
+}
