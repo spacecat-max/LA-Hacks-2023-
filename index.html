@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Dining X</title>
+    <meta
+      name="description"
+      content="Enhance your dining experiences on the go."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./marketing/styles.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <p>
+        There is an <strong class="shake" id="impussy">imposter</strong> in your
+        home&hellip;
+      </p>
+      <img src="./marketing/scream.svg" alt="scream emoji" id="face" />
+    </div>
+    <div class="hero">
+      <p>
+        &hellip;but you <strong class="crave">crave</strong> food and must leave
+        your abode.
+      </p>
+      <img src="./marketing/pregnant_person.svg" alt="pregnant person emoji" />
+    </div>
+    <div class="hero">
+      <p>Might as well travel somewhere new while you're at it!</p>
+      <img src="./marketing/airplane.svg" alt="airplane emoji" />
+    </div>
+    <div class="hero long">
+      <p>
+        But inferior apps like Google Maps suggest chain restaurants that can be
+        found anywhere.
+      </p>
+      <img src="./marketing/map.svg" alt="map emoji" />
+    </div>
+    <div class="hero long">
+      <p>
+        With modern advancements in AI and machine learning algorithms, we
+        remove these unimaginative &ldquo;restaurants&rdquo; and give you
+        <strong class="real">real dining X-periences</strong>.
+      </p>
+      <img src="./marketing/bulb.svg" alt="lightbulb emoji" />
+    </div>
+    <a href="./MapSearch.html" class="button">Try now</a>
+    <script>
+      const span = document.getElementById('impussy')
+      const face = document.getElementById('face')
+      for (const c of span.childNodes[0].nodeValue) {
+        span.append(
+          Object.assign(document.createElement('span'), { textContent: c })
+        )
+      }
+      span.removeChild(span.childNodes[0])
+      const wow = () => Math.random() * 5 + 2.5
+      function paint () {
+        for (const c of span.children) {
+          c.style.transform = `translate(${wow()}px, ${wow()}px)`
+        }
+        face.style.transform = `translate(${wow()}px, ${wow()}px)`
+        window.requestAnimationFrame(paint)
+      }
+      paint()
+    </script>
+  </body>
+</html>
