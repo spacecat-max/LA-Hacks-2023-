@@ -4,20 +4,22 @@
 <!--
     website implimentation
 
-    STAGE 1:
+    STAGE 1: COMPLETE
     user set location :)
     search nearby (get search nearby of all places) :)
-    search nearby category restaurants
-    remove points from unwanted places
+    search nearby category restaurants :)
+    remove points from unwanted places :)
 
-    STAGE 2:
-    categories button (get search POI category in nearby)
-    remove unwanted points
+    STAGE 2: IN PROGRESS
+    fix the range of map + data points showed 
+    categories button (other categories than "resturants")
+    full list of denyList
+    get rid of map extra stuff
+    finish devpost
 
     STAGE 3:
     pick a 2 cities
     subtract overlapping locations from one city (eg: etc)
-
 -->
 
 <head>
@@ -89,9 +91,9 @@
                     // Extract GeoJSON feature collection from the response and add it to the datasource
                     var data = results.geojson.getFeatures();
                     //FILTER FUNCTION HEREEEE
-                    
-
-                    datasource.add(data);
+                    datasource.clear();
+                        data.features = data.features.filter(checkIfDeny);
+                        datasource.add(data);
 
                     // set camera to bounds to<Your Azure Maps Subscription Key> show the results
                     map.setCamera({
