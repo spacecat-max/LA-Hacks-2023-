@@ -194,8 +194,23 @@
 
 
             function checkIfDeny(item){
-                const denyList = ["Domino's", "SUBWAY", "KFC", "McDonald's", "Chipotle Mexican Grill", "Taco Bell", "Carl's Junior", "Veggie Grill", "Wetzel's Pretzels", "Jamba Juice", "Yogurtland", "B J's Chicago Pizzeria", "Olive Garden", "Five Guys"];
-                return !denyList.includes(item.properties.poi.name);
+                const denyList = new Set([
+                    "Domino's",
+                    "SUBWAY",
+                    "KFC",
+                    "McDonald's",
+                    "Chipotle Mexican Grill",
+                    "Taco Bell",
+                    "Carl's Junior",
+                    "Veggie Grill",
+                    "Wetzel's Pretzels",
+                    "Jamba Juice",
+                    "Yogurtland",
+                    "B J's Chicago Pizzeria",
+                    "Olive Garden",
+                    "Five Guys"
+                ]);
+                return !denyList.has(item.properties.poi.name);
             }
 
         }
