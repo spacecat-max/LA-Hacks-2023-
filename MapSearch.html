@@ -41,6 +41,66 @@
     <script src="https://atlas.microsoft.com/sdk/javascript/service/2/atlas-service.min.js"></script>
 
     <script>
+
+        const denyList = new Set([
+            "dominos",
+            "subway",
+            "kfc",
+            "mcdonalds",
+            "chipotlemexicangrill",
+            "tacobell",
+            "carlsjunior",
+            "veggiegrill",
+            "wetzelspretzels",
+            "jambajuice",
+            "yogurtland",
+            "bjschicagopizzeria",
+            "olivegarden",
+            "fiveguys",
+            "elpolloloco",
+            "pandaexpress",
+            "fostersfreeze",
+            "jackinthebox",
+            "raleys",
+            "target",
+            "modpizza",
+            "littlecaesars",
+            "nekterjuicebar",
+            "rubios",
+            "rubioscoastalgrill",
+            "thehabitburgergrill",
+            "fiveguysburgersandfries",
+            "sproutsfarmersmarket",
+            "in-n-outburger",
+            "pizzahutexpress",
+            "pizzahut",
+            "cheesecakefactory",
+            "outbacksteakhouse",
+            "papajohns",
+            "arbys",
+            "sonic",
+            "burgerking",
+            "littlecaesars",
+            "baskin-robbins",
+            "cinnabon",
+            "mendocinofarms",
+            "popeyes",
+            "wendys",
+            "starbucks",
+            "bjsrestaurant&brewhouse",
+            "bjsrestaurants&brewhouse",
+            "californiapizzakitchen",
+            "wholefoodsmarket",
+            "bjslocation403",
+            "85cbakerycafe",
+            "häagen-dazs",
+            "dennys",
+            "bobsburgers",
+            "chick-fil-a",
+            "dairyqueen",
+            "chevronstation"
+        ]);
+
         function GetMap() {
             //Add Map Control JavaScript code here
             //Instantiate a map object
@@ -83,9 +143,9 @@
 
                 var query = 'restaurant'; // ************************************** TODO: locations here
                 var radius = 9000;
-                var lat = 34.07023625751049 ;  //**********************************************user location
+                var lat = 34.07023625751049;  //**********************************************user location
                 var lon = -118.44675563468073; //**********************************************user  location
-                
+
                 searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
                     limit: 100,
                     lat: lat,
@@ -98,8 +158,8 @@
                     var data = results.geojson.getFeatures();
                     //FILTER FUNCTION HEREEEE
                     datasource.clear();
-                        data.features = data.features.filter(checkIfDeny);
-                        datasource.add(data);
+                    data.features = data.features.filter(checkIfDeny);
+                    datasource.add(data);
 
                     // set camera to bounds to<Your Azure Maps Subscription Key> show the results
                     map.setCamera({
@@ -117,25 +177,25 @@
                 map.events.add('mouseout', resultLayer, hidePopup);
 
                 //refresh the data on click
-                map.events.add('click', function (e) {
+                map.events.add('idle', function (e) {
                     //current coordinates 
                     var position = e.position;
                     console.log(position);
 
                     var query = 'restaurant'; // ************************************** TODO: locations here
                     //var radius = 9000;
-                    var lat = position[1];  //**********************************************user location
-                    var lon = position[0]; //**********************************************user  location
+                    //var lat = position[1];  //**********************************************user location
+                    //var lon = position[0]; //**********************************************user  location
                     var bounds = map.getCamera().bounds;
 
                     searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
                         limit: 100,
                         //lat: lat,
                         //lon: lon,
-                        
-                        
+
+
                         topLeft: `${bounds[3]},${bounds[0]}`,
-                        btmRight: `${bounds[1]},${bounds[2]}`, 
+                        btmRight: `${bounds[1]},${bounds[2]}`,
                         //radius: radius,
                         view: 'Auto'
                     }).then((results) => {
@@ -148,18 +208,18 @@
 
                         console.log(data);
                         console.log(data.features);
-                        for(const item of data.features){
+                        for (const item of data.features) {
                             console.log(item.properties.poi.name);
                         }
-                        
+
                         //console.log(map.getCamera().bounds); //top left (0,3) bottom right (1,2)
-/* 
-                        // set camera to bounds to<Your Azure Maps Subscription Key> show the results
-                        map.setCamera({
-                            bounds: data.bbox,
-                            zoom: 10,
-                            padding: 15
-                        }); */
+                        /* 
+                                                // set camera to bounds to<Your Azure Maps Subscription Key> show the results
+                                                map.setCamera({
+                                                    bounds: data.bbox,
+                                                    zoom: 10,
+                                                    padding: 15
+                                                }); */
                     });
 
                 });
@@ -193,66 +253,8 @@
 
 
 
-            function checkIfDeny(item){
-                const denyList = new Set([
-                    "dominos",
-                    "subway",
-                    "kfc",
-                    "mcdonalds",
-                    "chipotlemexicangrill",
-                    "tacobell",
-                    "carlsjunior",
-                    "veggiegrill",
-                    "wetzelspretzels",
-                    "jambajuice",
-                    "yogurtland",
-                    "bjschicagopizzeria",
-                    "olivegarden",
-                    "fiveguys",
-                    "elpolloloco",
-                    "pandaexpress",
-                    "fostersfreeze",
-                    "jackinthebox",
-                    "raleys",
-                    "target",
-                    "modpizza",
-                    "littlecaesars",
-                    "nekterjuicebar",
-                    "rubios",
-                    "rubioscoastalgrill",
-                    "thehabitburgergrill",
-                    "fiveguysburgersandfries",
-                    "sproutsfarmersmarket",
-                    "in-n-outburger",
-                    "pizzahutexpress",
-                    "pizzahut",
-                    "cheesecakefactory",
-                    "outbacksteakhouse",
-                    "papajohns",
-                    "arbys",
-                    "sonic",
-                    "burgerking",
-                    "littlecaesars",
-                    "baskin-robbins",
-                    "cinnabon",
-                    "mendocinofarms",
-                    "popeyes",
-                    "wendys",
-                    "starbucks",
-                    "bjsrestaurant&brewhouse",
-                    "bjsrestaurants&brewhouse",
-                    "californiapizzakitchen",
-                    "wholefoodsmarket",
-                    "bjslocation403",
-                    "85cbakerycafe",
-                    "häagen-dazs",
-                    "dennys",
-                    "bobsburgers",
-                    "chick-fil-a",
-                    "dairyqueen",
-                    "chevronstation"
-                ]);
-                return !denyList.has(item.properties.poi.name.toLowerCase().replaceAll("'","").replaceAll(/\s/g, ""));
+            function checkIfDeny(item) {
+                return !denyList.has(item.properties.poi.name.toLowerCase().replaceAll("'", "").replaceAll(/\s/g, ""));
             }
 
         }
