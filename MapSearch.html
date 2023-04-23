@@ -88,6 +88,9 @@
 
                     // Extract GeoJSON feature collection from the response and add it to the datasource
                     var data = results.geojson.getFeatures();
+                    //FILTER FUNCTION HEREEEE
+                    
+
                     datasource.add(data);
 
                     // set camera to bounds to<Your Azure Maps Subscription Key> show the results
@@ -134,10 +137,10 @@
                         // Extract GeoJSON feature collection from the response and add it to the datasource
                         var data = results.geojson.getFeatures();
                         datasource.clear();
+                        data.features = data.features.filter(checkIfDeny);
                         datasource.add(data);
 
-
-                        //console.log(data);
+                        console.log(data);
                         //console.log(map.getCamera().bounds); //top left (0,3) bottom right (1,2)
 /* 
                         // set camera to bounds to<Your Azure Maps Subscription Key> show the results
@@ -176,6 +179,13 @@
                     popup.open(map);
                 }
             });
+
+
+
+            function checkIfDeny(item){
+                const denyList = ["Domino's"];
+                return !denyList.includes(item.properties.poi.name);
+            }
 
         }
 
