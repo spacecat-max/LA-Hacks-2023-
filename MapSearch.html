@@ -19,6 +19,7 @@
     finish devpost
 
     STAGE 3:
+    update when scroll out (not dependent on click)
     get rid of map extra stuff
     categories button (other categories than "resturants")
 
@@ -146,6 +147,10 @@
                         datasource.add(data);
 
                         console.log(data);
+                        console.log(data.features);
+                        for(const item of data.features){
+                            console.log(item.properties.poi.name);
+                        }
                         
                         //console.log(map.getCamera().bounds); //top left (0,3) bottom right (1,2)
 /* 
@@ -189,7 +194,7 @@
 
 
             function checkIfDeny(item){
-                const denyList = ["Domino's"];
+                const denyList = ["Domino's", "SUBWAY", "KFC"];
                 return !denyList.includes(item.properties.poi.name);
             }
 
