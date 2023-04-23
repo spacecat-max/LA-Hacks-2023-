@@ -4,6 +4,8 @@
 <!--
     website implimentation
 
+    very useful website for reference: https://learn.microsoft.com/en-us/azure/azure-maps/tutorial-search-location
+
     STAGE 1: COMPLETE
     user set location :)
     search nearby (get search nearby of all places) :)
@@ -11,13 +13,16 @@
     remove points from unwanted places :)
 
     STAGE 2: IN PROGRESS
-    fix the range of map + data points showed 
-    categories button (other categories than "resturants")
-    full list of denyList
-    get rid of map extra stuff
+    fix the range of map + data points showed :)
+    full list of denyList 
+    put on website (tech domain)
     finish devpost
 
     STAGE 3:
+    get rid of map extra stuff
+    categories button (other categories than "resturants")
+
+    STAGE 4:
     pick a 2 cities
     subtract overlapping locations from one city (eg: etc)
 -->
@@ -117,22 +122,20 @@
                     console.log(position);
 
                     var query = 'restaurant'; // ************************************** TODO: locations here
-                    var radius = 9000;
+                    //var radius = 9000;
                     var lat = position[1];  //**********************************************user location
                     var lon = position[0]; //**********************************************user  location
                     var bounds = map.getCamera().bounds;
 
                     searchURL.searchPOI(atlas.service.Aborter.timeout(10000), query, {
-                        limit: 10,
-                        lat: lat,
-                        lon: lon,
+                        limit: 100,
+                        //lat: lat,
+                        //lon: lon,
                         
-                        /* 
-                        FIX THIS LATER!!!!!!!!!!! VIEW BOUNDS
                         
-                        topLeft: `${bounds[0]},${bounds[3]}`,
-                        btmRight: `${bounds[2]},${bounds[1]}`, */
-                        radius: radius,
+                        topLeft: `${bounds[3]},${bounds[0]}`,
+                        btmRight: `${bounds[1]},${bounds[2]}`, 
+                        //radius: radius,
                         view: 'Auto'
                     }).then((results) => {
 
@@ -143,6 +146,7 @@
                         datasource.add(data);
 
                         console.log(data);
+                        
                         //console.log(map.getCamera().bounds); //top left (0,3) bottom right (1,2)
 /* 
                         // set camera to bounds to<Your Azure Maps Subscription Key> show the results
